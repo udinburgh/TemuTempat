@@ -31,6 +31,7 @@ struct ProfileView: View {
                         item in
                     }
                 }
+//                coba
                 Spacer()
 
             }            
