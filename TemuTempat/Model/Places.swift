@@ -24,7 +24,8 @@ struct Places: Hashable, Codable, Identifiable {      // add Identifiable so ite
         Image(imageName)
     }
     
-    private var coordinates: Coordinates
+    var coordinates: Coordinates
+    
     var locationCoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(
             latitude: coordinates.latitude,
