@@ -8,17 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(ModelData.self) var modelData
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+//        ZStack {
+//            MapView(searchTerm: .constant(""))
+//            SearchBar()
+//                .padding(.horizontal)
+//                .padding(.bottom, 650)
+//        }
+        Text("Hello, World!")
     }
 }
 
 #Preview {
+    let modelData = ModelData()
     ContentView()
+        .environment(modelData)
 }

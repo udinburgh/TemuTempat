@@ -23,4 +23,3 @@ enum ProfileFilter: Int, CaseIterable {
         }
     }
 }
-

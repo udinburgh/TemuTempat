@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct BottomSheet: View {
+    
+    var places: [Places]
+    
     var body: some View {
         VStack {
             Capsule()
@@ -16,43 +19,25 @@ struct BottomSheet: View {
                 .padding(.top, 10)
             
             ScrollView {
-                ForEach(0..<20) { _ in
-                    HStack {
-                        Rectangle()
-                            .fill(Color.gray)
-                            .frame(width: 80, height: 80)
-                            .cornerRadius(10)
-                        
-                        VStack(alignment: .leading) {
-                            Text("Place Name")
-                                .font(.headline)
-                            Text("Place Address")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                            
-                            HStack {
-                                ForEach(0..<3) { _ in
-                                    Text("tags")
-                                        .padding(5)
-                                        .background(Color.gray.opacity(0.3))
-                                        .cornerRadius(5)
-                                }
-                            }
-                        }
-                        Spacer()
-                        
-                        Image(systemName: "heart")
-                            .foregroundColor(.gray)
+                VStack {
+                    ForEach(places) { place in
+                        PlacesCard(places: place)
                     }
-                    .padding()
                 }
+                .padding(.horizontal)
             }
-            .padding(.bottom,30)
+            .padding(.bottom, 30)
         }
         .background(Color.white)
         .cornerRadius(20)
         .shadow(radius: 10)
-        .frame(maxHeight: UIScreen.main.bounds.height * 5)
-        .offset(y: UIScreen.main.bounds.height * 0.50) // Adjusted offset to move it slightly higher
+        .frame(maxHeight: UIScreen.main.bounds.height * 0.5)
+        .offset(y: UIScreen.main.bounds.height * 0.45)
     }
+}
+
+#Preview {
+    let modelData = ModelData()
+    BottomSheet(places: modelData.places)
+        .environment(modelData)
 }

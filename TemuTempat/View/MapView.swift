@@ -10,11 +10,6 @@ import MapKit
 
 struct MapView: View {
     @Environment(ModelData.self) var modelData
-    var places: Places
-    
-    var placesIndex: Int {
-        modelData.places.firstIndex(where : { $0.id == places.id })!
-    }
     
     @State var position =  MapCameraPosition.region(MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: -6.301616, longitude: 106.651796),
@@ -22,21 +17,20 @@ struct MapView: View {
     ))
     
     @State private var selectedPlace: Places?
+    @State private var searchTerm: String = ""
     
     var userPosition = MapCameraPosition.userLocation
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Map(position: $position) {
-                    ForEach(modelData.places) { place in
-                        Annotation(place.name, coordinate: place.locationCoordinate) {
-                            Image(systemName: "mappin")
-                                .foregroundColor(.red)
-                                .onTapGesture {
-                                    selectedPlace = place
-                                }
-                        }
+        ZStack {
+            Map(position: $position) {
+                ForEach(modelData.places) { place in
+                    Annotation(place.name, coordinate: place.locationCoordinate) {
+                        Image(systemName: "mappin")
+                            .foregroundColor(.red)
+                            .onTapGesture {
+                                selectedPlace = place
+                            }
                     }
                 }
 //                .navigationDestination(isPresented: Binding(
@@ -47,7 +41,11 @@ struct MapView: View {
 //                                    BottomSheet()
 //                                }
 //                            }
-                BottomSheet()
+            }
+            if selectedPlace == nil {
+                BottomSheet(places: modelData.places)
+            } else {
+                BottomSheet(places: [selectedPlace!])
             }
         }
     }
@@ -55,7 +53,7 @@ struct MapView: View {
 
 #Preview {
     let modelData = ModelData()
-        MapView(places: modelData.places[0])
+    MapView()
             .environment(modelData)
     }
 
