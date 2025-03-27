@@ -18,7 +18,7 @@ struct PlacesCard: View {
                 Image(places.imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 80, height: 80)
+                    .frame(width: 120)
                     .cornerRadius(10)
                 
                 VStack(alignment: .leading) {
@@ -71,5 +71,5 @@ struct PlacesCard: View {
 }
 
 #Preview {
-    PlacesCard(places: Places(placeName: "Cinema XXI", imageName:"Cinema XX1", placeDescription:"Cinema XXI, destinasi utama menonton film Anda.", tags:"Watching"))
+    PlacesCard(places: Places(placeName: "Cinema XXI", imageName:"CinemaXX1", placeDescription:"Cinema XXI, destinasi utama menonton film Anda.", tags:"Watching"))
 }

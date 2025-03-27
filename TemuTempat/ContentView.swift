@@ -47,11 +47,11 @@ struct ContentView: View {
 }
 
 let places: [Places] = [
-    Places(placeName: "Cinema XXI", imageName:"cinema", placeDescription:"Cinema XXI, destinasi utama menonton film Anda. Nikmati pengalaman menonton terbaik dengan teknologi terbaru.", tags:"Watching"),
-    Places(placeName: "Chatime", imageName:"chatime", placeDescription:"Chatime merupakan penyedia minuman brewed tea yang menghadirkan lebih dari 50 varian rasa.", tags:"Drinking"),
-    Places(placeName: "Chateraise", imageName:"chateraise", placeDescription:"Chateraise adalah toko kue dari Jepang yang menjual berbagai macam kue.", tags:"Dessert"),
-    Places(placeName: "D' COST", imageName:"dcost", placeDescription:"D'Cost adalah jaringan restoran seafood terbesar di Indonesia.", tags:"Eating"),
-    Places(placeName: "AuntieAnne's", imageName:"auntieannes", placeDescription:"Auntie Anne's adalah jaringan waralaba toko kudapan pretzel dari Amerika Serikat.", tags:"Eating")
+    Places(placeName: "Cinema XXI", imageName:"CinemaXX1", placeDescription:"Cinema XXI, destinasi utama menonton film Anda. Nikmati pengalaman menonton terbaik dengan teknologi terbaru.", tags:"Watching"),
+    Places(placeName: "Chatime", imageName:"Chatime", placeDescription:"Chatime merupakan penyedia minuman brewed tea yang menghadirkan lebih dari 50 varian rasa.", tags:"Drinking"),
+    Places(placeName: "Chateraise", imageName:"CinemaXX1", placeDescription:"Chateraise adalah toko kue dari Jepang yang menjual berbagai macam kue.", tags:"Dessert"),
+    Places(placeName: "D' COST", imageName:"CinemaXX1", placeDescription:"D'Cost adalah jaringan restoran seafood terbesar di Indonesia.", tags:"Eating"),
+    Places(placeName: "AuntieAnne's", imageName:"CinemaXX1", placeDescription:"Auntie Anne's adalah jaringan waralaba toko kudapan pretzel dari Amerika Serikat.", tags:"Eating")
 ]
 
 struct BottomSheet: View {
@@ -62,7 +62,7 @@ struct BottomSheet: View {
             Capsule()
                 .fill(Color.gray.opacity(0.5))
                 .frame(width: 50, height: 5)
-                .padding(.top, 10)
+                .padding(.top, 20)
             
             ScrollView {
                 VStack {
@@ -78,7 +78,7 @@ struct BottomSheet: View {
         .cornerRadius(20)
         .shadow(radius: 10)
         .frame(maxHeight: UIScreen.main.bounds.height * 0.5)
-        .offset(y: UIScreen.main.bounds.height * 0.45)
+        .offset(y: UIScreen.main.bounds.height * 0.20)
     }
 }
 

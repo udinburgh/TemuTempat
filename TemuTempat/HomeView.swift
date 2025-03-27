@@ -44,8 +44,13 @@ struct HomeView: View {
 
 
 #Preview {
-    @State var searchTerm = ""
-    let samplePlaces: [Places] = [] // Gantilah ini dengan array contoh jika diperlukan
+    struct PreviewWrapper: View {
+        @State private var searchTerm = ""
+        let samplePlaces: [Places] = [] 
 
-    return HomeView(searchTerm: $searchTerm, places: samplePlaces)
+        var body: some View {
+            HomeView(searchTerm: $searchTerm, places: samplePlaces)
+        }
+    }
+    return PreviewWrapper()
 }
