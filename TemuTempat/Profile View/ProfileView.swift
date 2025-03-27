@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var completedChallenges: Int = 0
     @State var selectedFilter: ProfileFilter = .Achievements
     @State var userName: String = "Fulan"
     @State private var isEditing: Bool = false
+    @AppStorage("completedChallenges") private var completedChallenges: Int = 0 
     
     var body: some View {
         VStack {
@@ -37,45 +37,45 @@ struct ProfileView: View {
                     Image(systemName: "square.and.pencil")
                 }
             }
-        .padding()
-        
-        
-        HStack {
-            ForEach(ProfileFilter.allCases, id: \.rawValue) { item in
-                VStack {
-                    Text(item.title)
-                        .font(.subheadline)
-                        .fontWeight(selectedFilter == item ? .semibold : .regular)
-                        .foregroundColor(selectedFilter == item ? Color.primary : .gray)
-                    
-                    Capsule()
-                        .foregroundColor(selectedFilter == item ? Color.primary : Color.clear)
-                        .frame(height: 3)
-                }
-                .onTapGesture {
-                    withAnimation(.easeInOut) {
-                        self.selectedFilter = item
+            .padding()
+            
+            HStack {
+                ForEach(ProfileFilter.allCases, id: \.rawValue) { item in
+                    VStack {
+                        Text(item.title)
+                            .font(.subheadline)
+                            .fontWeight(selectedFilter == item ? .semibold : .regular)
+                            .foregroundColor(selectedFilter == item ? Color.primary : .gray)
+                        
+                        Capsule()
+                            .foregroundColor(selectedFilter == item ? Color.primary : Color.clear)
+                            .frame(height: 3)
+                    }
+                    .onTapGesture {
+                        withAnimation(.easeInOut) {
+                            self.selectedFilter = item
+                        }
                     }
                 }
             }
-        }
-        .padding(.top)
-        
-        VStack {
-            switch selectedFilter {
-            case .Achievements:
-                AchievementView(completedChallenges: completedChallenges)
-            case .History:
-                HistoryView()
-            case .Favorites:
-                FavoriteView()
+            .padding(.top)
+            
+            VStack {
+                switch selectedFilter {
+                case .Achievements:
+                    AchievementView()
+                case .History:
+                    HistoryView()
+                case .Favorites:
+                    FavoriteView()
+                }
             }
+            
+            Spacer()
         }
-        
-        Spacer()
     }
 }
-}
+
 
 #Preview {
     ProfileView()
