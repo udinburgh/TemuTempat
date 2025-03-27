@@ -10,7 +10,8 @@ import MapKit
 
 struct HomeView: View {
     var body: some View {
-        Map()    }
+        Map()
+    }
 }
 
 #Preview {

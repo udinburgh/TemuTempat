@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
     
 enum ProfileFilter: Int, CaseIterable {
     case Achievements
@@ -23,4 +24,3 @@ enum ProfileFilter: Int, CaseIterable {
         }
     }
 }
-
