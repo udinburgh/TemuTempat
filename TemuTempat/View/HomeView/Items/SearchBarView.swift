@@ -20,6 +20,7 @@ struct SearchBar: View {
             if !searchTerm.isEmpty {
                 Button {
                     searchTerm = ""
+                    dismissKeyboard()
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.gray)

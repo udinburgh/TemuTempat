@@ -11,10 +11,23 @@ struct ContentView: View {
     @Environment(ModelData.self) var modelData
     
     var body: some View {
-        ZStack {
+        TabView {
             MapView()
+                .tabItem {
+                    Image(systemName: "mappin.circle")
+                    Text("Map")
+                }
+            ChallengeView()
+                .tabItem {
+                    Image(systemName: "star.fill")
+                    Text("Challenge")
+                }
+            ProfileView()
+                .tabItem {
+                    Image(systemName: "person.circle")
+                    Text("Profile")
+                }
         }
-//        Text("Hello, World!")
     }
 }
 

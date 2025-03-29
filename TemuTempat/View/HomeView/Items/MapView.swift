@@ -11,7 +11,7 @@ import MapKit
 struct MapView: View {
     @Environment(ModelData.self) var modelData
     
-    @State var position =  MapCameraPosition.region(MKCoordinateRegion(
+    @State var position = MapCameraPosition.region(MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: -6.301616, longitude: 106.651796),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.005)
     ))
@@ -47,30 +47,36 @@ struct MapView: View {
                     }
                 }
             }
+            .ignoresSafeArea()
             
+            // Bottom sheet is now positioned by its own internal logic
             if let selectedPlace = selectedPlace {
-                                BottomSheet(places: [selectedPlace])
-                                    .transition(.move(edge: .bottom))
-                            } else {
-                                BottomSheet(places: searchedPlaces)
-                                    .transition(.move(edge: .bottom))
-                            }
-            SearchBar(searchTerm: $searchTerm)
-                .padding(.horizontal)
-                .padding(.bottom, 650)
+                BottomSheet(places: [selectedPlace])
+                    .transition(.move(edge: .bottom))
+            } else {
+                BottomSheet(places: searchedPlaces)
+                    .transition(.move(edge: .bottom))
+            }
+            
+            VStack {
+                SearchBar(searchTerm: $searchTerm)
+                    .padding(.horizontal)
+                    .padding(.top)
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
+                Spacer()
+            }
         }
         .onChange(of: searchTerm) { oldValue, newValue in
-                        // Reset selectedPlace to nil when searchTerm changes
-                        if !newValue.isEmpty {
-                            selectedPlace = nil
-                        }
-                    }
+            // Reset selectedPlace to nil when searchTerm changes
+            if !newValue.isEmpty {
+                selectedPlace = nil
+            }
+        }
     }
 }
 
 #Preview {
     let modelData = ModelData()
     MapView()
-            .environment(modelData)
-    }
-
+        .environment(modelData)
+}

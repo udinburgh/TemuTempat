@@ -10,8 +10,11 @@ import SwiftUI
 struct PlacesCard: View {
     @Environment(ModelData.self) var modelData
     var places: Places
-    @State private var isLoved = false
     
+    var placeIndex: Int {
+        modelData.places.firstIndex(where : { $0.id == places.id })!
+    }
+
     var body: some View {
         @Bindable var modelData = modelData
         VStack {
@@ -29,13 +32,7 @@ struct PlacesCard: View {
                             .foregroundColor(.black)
                         Spacer()
                         
-                        Button {
-                            isLoved.toggle()
-                        } label: {
-                            Label("Toggle Favorite", systemImage: isLoved ? "heart.fill" : "heart")
-                                .labelStyle(.iconOnly)
-                                .foregroundStyle(isLoved ? .red : .gray)
-                        }
+                        FavoriteButton(isLoved: $modelData.places[placeIndex].isFavorite)
                     }
                     
                     Text(places.description)

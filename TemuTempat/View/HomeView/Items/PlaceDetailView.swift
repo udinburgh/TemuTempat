@@ -8,11 +8,17 @@
 import SwiftUI
 
 struct PlaceDetails: View {
+    @Environment(ModelData.self) var modelData
     let selectedPlace: Places
+    
+    var placeIndex: Int {
+        modelData.places.firstIndex(where : { $0.id == selectedPlace.id })!
+    }
     
     @State private var isLoved = false
     
     var body: some View {
+        @Bindable var modelData = modelData
         // Show details when a place is selected
         VStack(alignment: .leading, spacing: 10) {
             HStack {
@@ -27,13 +33,7 @@ struct PlaceDetails: View {
                             .font(.title2)
                             .fontWeight(.bold)
                         Spacer()
-                        Button {
-                            isLoved.toggle()
-                        } label: {
-                            Label("Toggle Favorite", systemImage: isLoved ? "heart.fill" : "heart")
-                                .labelStyle(.iconOnly)
-                                .foregroundStyle(isLoved ? .red : .gray)
-                        }
+                        FavoriteButton(isLoved: $modelData.places[placeIndex].isFavorite)
                     }
                     Text("Address: \(selectedPlace.address)")
                         .font(.subheadline)
@@ -55,4 +55,10 @@ struct PlaceDetails: View {
         .padding()
         .transition(.opacity)
     }
+}
+
+#Preview {
+    let modelData = ModelData()
+    PlaceDetails(selectedPlace: modelData.places[0])
+        .environment(modelData)
 }
