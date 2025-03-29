@@ -13,10 +13,20 @@ struct SearchBar: View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
-                .padding(.leading, 10)
+                .padding(.leading, 20)
             
             TextField("Search here...", text: $searchTerm)
                 .padding(10)
+            if !searchTerm.isEmpty {
+                Button {
+                    searchTerm = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.gray)
+                        .padding(.trailing, 20)
+                }
+
+            }
         }
         .background(Color.white)
         .cornerRadius(20)

@@ -11,13 +11,10 @@ struct ContentView: View {
     @Environment(ModelData.self) var modelData
     
     var body: some View {
-//        ZStack {
-//            MapView(searchTerm: .constant(""))
-//            SearchBar()
-//                .padding(.horizontal)
-//                .padding(.bottom, 650)
-//        }
-        Text("Hello, World!")
+        ZStack {
+            MapView()
+        }
+//        Text("Hello, World!")
     }
 }
 

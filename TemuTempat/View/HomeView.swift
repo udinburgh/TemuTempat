@@ -10,7 +10,10 @@ import MapKit
 
 struct HomeView: View {
     var body: some View {
-        Map()    }
+        let modelData = ModelData()
+        MapView()
+                .environment(modelData)
+    }
 }
 
 #Preview {

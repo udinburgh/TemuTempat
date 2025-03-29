@@ -11,7 +11,9 @@ import SwiftUI
 struct TemuTempatApp: App {
     var body: some Scene {
         WindowGroup {
+            let modelData = ModelData()
             ContentView()
+                .environment(modelData)
         }
     }
 }

@@ -19,35 +19,52 @@ struct MapView: View {
     @State private var selectedPlace: Places?
     @State private var searchTerm: String = ""
     
-    var userPosition = MapCameraPosition.userLocation
+//    var userPosition = MapCameraPosition.userLocation
+    
+    var searchedPlaces: [Places] {
+        if searchTerm.isEmpty {
+            return modelData.places // Show all places when search is empty
+        } else {
+            return modelData.places.filter { place in
+                place.name.lowercased().contains(searchTerm.lowercased()) // Case-insensitive search by name
+            }
+        }
+    }
     
     var body: some View {
         ZStack {
             Map(position: $position) {
                 ForEach(modelData.places) { place in
                     Annotation(place.name, coordinate: place.locationCoordinate) {
-                        Image(systemName: "mappin")
+                        Image(systemName: "mappin.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
                             .foregroundColor(.red)
+                            .frame(width: 30, height: 30)
                             .onTapGesture {
                                 selectedPlace = place
                             }
                     }
                 }
-//                .navigationDestination(isPresented: Binding(
-//                                get: { selectedPlace != nil },
-//                                set: { if !$0 { selectedPlace = nil } }
-//                            )) {
-//                                if let selectedPlace = selectedPlace {
-//                                    BottomSheet()
-//                                }
-//                            }
             }
-            if selectedPlace == nil {
-                BottomSheet(places: modelData.places)
-            } else {
-                BottomSheet(places: [selectedPlace!])
-            }
+            
+            if let selectedPlace = selectedPlace {
+                                BottomSheet(places: [selectedPlace])
+                                    .transition(.move(edge: .bottom))
+                            } else {
+                                BottomSheet(places: searchedPlaces)
+                                    .transition(.move(edge: .bottom))
+                            }
+            SearchBar(searchTerm: $searchTerm)
+                .padding(.horizontal)
+                .padding(.bottom, 650)
         }
+        .onChange(of: searchTerm) { oldValue, newValue in
+                        // Reset selectedPlace to nil when searchTerm changes
+                        if !newValue.isEmpty {
+                            selectedPlace = nil
+                        }
+                    }
     }
 }
 
