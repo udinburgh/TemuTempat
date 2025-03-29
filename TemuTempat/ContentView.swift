@@ -60,6 +60,7 @@ let places: [Places] = [
     Places(placeName: "Chatime", imageName: "ChatimeLogo", placeDescription: "Chatime adalah jaringan minuman bubble tea asal Taiwan yang populer di seluruh dunia.", tags: "Beverage")
 
 ]
+//check
 #Preview {
     ContentView()
 }
