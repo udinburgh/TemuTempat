@@ -2,8 +2,13 @@ import SwiftUI
 
 struct BottomSheet: View {
     var places: [Places]
-    @State private var sheetHeight: CGFloat = UIScreen.main.bounds.height * 0.5
-    @State private var dragOffset: CGFloat = 0
+    var isSearching: Bool
+    
+    @State private var sheetHeight: CGFloat = UIScreen.main.bounds.height * 0.25 // Default ke 1/4 layar
+    
+    var minHeight: CGFloat { UIScreen.main.bounds.height * 0.25 } // 1/4 layar
+    var midHeight: CGFloat { UIScreen.main.bounds.height * 0.5 }  // 1/2 layar
+    var maxHeight: CGFloat { UIScreen.main.bounds.height * 0.75 } // 3/4 layar
     
     var body: some View {
         VStack {
@@ -15,16 +20,18 @@ struct BottomSheet: View {
                     DragGesture()
                         .onChanged { value in
                             let newHeight = sheetHeight - value.translation.height
-                            if newHeight >= UIScreen.main.bounds.height * 0.5 && newHeight <= UIScreen.main.bounds.height * 0.75 {
+                            if newHeight >= minHeight && newHeight <= maxHeight {
                                 sheetHeight = newHeight
                             }
                         }
-                        .onEnded { value in
+                        .onEnded { _ in
                             withAnimation {
-                                if sheetHeight > UIScreen.main.bounds.height * 0.625 {
-                                    sheetHeight = UIScreen.main.bounds.height * 0.75
+                                if sheetHeight > (midHeight + maxHeight) / 2 {
+                                    sheetHeight = maxHeight // Geser ke 3/4 layar
+                                } else if sheetHeight > (minHeight + midHeight) / 2 {
+                                    sheetHeight = midHeight // Geser ke 1/2 layar
                                 } else {
-                                    sheetHeight = UIScreen.main.bounds.height * 0.5
+                                    sheetHeight = minHeight // Geser ke 1/4 layar
                                 }
                             }
                         }
@@ -55,9 +62,22 @@ struct BottomSheet: View {
         .shadow(radius: 10)
         .frame(maxHeight: sheetHeight)
         .offset(y: UIScreen.main.bounds.height * 0.50 - sheetHeight / 2)
+        .onChange(of: isSearching) { oldValue, newValue in
+            withAnimation {
+                sheetHeight = newValue ? maxHeight : minHeight
+            }
+        }
     }
 }
 
 #Preview {
-    BottomSheet(places: places)
+    struct PreviewWrapper: View {
+        let samplePlaces: [Places] = []
+        @State private var isSearching = false
+        
+        var body: some View {
+            BottomSheet(places: samplePlaces, isSearching: isSearching)
+        }
+    }
+    return PreviewWrapper()
 }
