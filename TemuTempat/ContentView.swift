@@ -86,4 +86,3 @@ struct BottomSheet: View {
 #Preview {
     ContentView()
 }
-//    @AppStorage("completedChallenges") private var completedChallenges: Int = 0
