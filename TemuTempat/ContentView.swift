@@ -52,37 +52,14 @@ let places: [Places] = [
     Places(placeName: "Chatime", imageName:"Chatime", placeDescription:"Chatime merupakan penyedia minuman brewed tea yang menghadirkan lebih dari 50 varian rasa.", tags:"Drinking"),
     Places(placeName: "Chateraise", imageName:"CinemaXX1", placeDescription:"Chateraise adalah toko kue dari Jepang yang menjual berbagai macam kue.", tags:"Dessert"),
     Places(placeName: "D' COST", imageName:"CinemaXX1", placeDescription:"D'Cost adalah jaringan restoran seafood terbesar di Indonesia.", tags:"Eating"),
-    Places(placeName: "AuntieAnne's", imageName:"CinemaXX1", placeDescription:"Auntie Anne's adalah jaringan waralaba toko kudapan pretzel dari Amerika Serikat.", tags:"Eating")
+    Places(placeName: "AuntieAnne's", imageName:"CinemaXX1", placeDescription:"Auntie Anne's adalah jaringan waralaba toko kudapan pretzel dari Amerika Serikat.", tags:"Eating"),
+    Places(placeName: "Starbucks", imageName: "StarbucksLogo", placeDescription: "Starbucks adalah jaringan kedai kopi terbesar di dunia yang berasal dari Amerika Serikat.", tags: "Cafe"),
+    Places(placeName: "Burger King", imageName: "BurgerKingLogo", placeDescription: "Burger King adalah jaringan restoran cepat saji yang terkenal dengan burger Whopper-nya.", tags: "Fast Food"),
+    Places(placeName: "J.CO Donuts", imageName: "JCOLogo", placeDescription: "J.CO Donuts adalah jaringan gerai donat dan kopi asal Indonesia.", tags: "Cafe"),
+    Places(placeName: "KFC", imageName: "KFCLogo", placeDescription: "KFC adalah restoran cepat saji terkenal yang menyajikan ayam goreng dengan resep rahasia.", tags: "Fast Food"),
+    Places(placeName: "Chatime", imageName: "ChatimeLogo", placeDescription: "Chatime adalah jaringan minuman bubble tea asal Taiwan yang populer di seluruh dunia.", tags: "Beverage")
+
 ]
-
-struct BottomSheet: View {
-    var places: [Places]
-    
-    var body: some View {
-        VStack {
-            Capsule()
-                .fill(Color.gray.opacity(0.5))
-                .frame(width: 50, height: 5)
-                .padding(.top, 20)
-            
-            ScrollView {
-                VStack {
-                    ForEach(places, id: \.placeName) { place in
-                        PlacesCard(places: place)
-                    }
-                }
-                .padding(.horizontal)
-            }
-            .padding(.bottom, 30)
-        }
-        .background(Color.white)
-        .cornerRadius(20)
-        .shadow(radius: 10)
-        .frame(maxHeight: UIScreen.main.bounds.height * 0.5)
-        .offset(y: UIScreen.main.bounds.height * 0.20)
-    }
-}
-
 #Preview {
     ContentView()
 }
