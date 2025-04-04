@@ -1,5 +1,5 @@
 //
-//  PlaceDetailView.swift
+//  BuildingDetailView.swift
 //  TemuTempat
 //
 //  Created by Akbar Febry on 28/03/25.
@@ -7,39 +7,34 @@
 
 import SwiftUI
 
-struct PlaceDetails: View {
-    @Environment(ModelData.self) var modelData
-    let selectedPlace: Places
-    
-    var placeIndex: Int {
-        modelData.places.firstIndex(where : { $0.id == selectedPlace.id })!
-    }
-    
-    @State private var isLoved = false
+struct BuildingDetails: View {
+    let selectedBuilding: Building
     
     var body: some View {
-        @Bindable var modelData = modelData
-        // Show details when a place is selected
+        // Show details when a building is selected
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                selectedPlace.image
+                selectedBuilding.image
                     .resizable()
                     .scaledToFit()
                     .frame(height: 100)
                     .cornerRadius(10)
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(selectedPlace.name)
+                        Text(selectedBuilding.name)
                             .font(.title2)
                             .fontWeight(.bold)
                         Spacer()
-                        FavoriteButton(isLoved: $modelData.places[placeIndex].isFavorite)
+                        FavoriteButton(isLoved: Binding(
+                            get: { selectedBuilding.isFavorite },
+                            set: { selectedBuilding.isFavorite = $0 }
+                        ))
                     }
-                    Text("Address: \(selectedPlace.address)")
+                    Text("Address: \(selectedBuilding.address)")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                     HStack {
-                        ForEach(selectedPlace.tags, id: \.self) { tag in
+                        ForEach(selectedBuilding.tags, id: \.self) { tag in
                             Text(tag)
                                 .font(.caption)
                                 .padding(5)
@@ -49,16 +44,10 @@ struct PlaceDetails: View {
                     }
                 }
             }
-            Text(selectedPlace.description)
+            Text(selectedBuilding.desc)
                 .font(.body)
         }
         .padding()
         .transition(.opacity)
     }
-}
-
-#Preview {
-    let modelData = ModelData()
-    PlaceDetails(selectedPlace: modelData.places[0])
-        .environment(modelData)
 }

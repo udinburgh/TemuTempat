@@ -7,15 +7,16 @@
 
 import SwiftUI
 import MapKit
+import SwiftData
 
 struct HomeView: View {
     var body: some View {
-        let modelData = ModelData()
         MapView()
-                .environment(modelData)
+            .modelContainer(for: Building.self, inMemory: true)
     }
 }
 
 #Preview {
     HomeView()
+        .modelContainer(for: Building.self, inMemory: true)
 }

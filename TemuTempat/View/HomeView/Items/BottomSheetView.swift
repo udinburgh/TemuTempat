@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct BottomSheet: View {
-    var places: [Places]
-    @State private var selectedPlace: Places? // Track the selected place
+    var buildings: [Building]
+    @State private var selectedBuilding: Building? // Track the selected building
     @State private var dragOffset: CGFloat = 0
     @State private var heightState: SheetHeight = .mid // Changed default to mid
     
@@ -23,7 +23,7 @@ struct BottomSheet: View {
             switch self {
             case .low: return UIScreen.main.bounds.height * 0.45
             case .mid: return UIScreen.main.bounds.height * 0.5
-            case .full: return UIScreen.main.bounds.height * 0.9
+            case .full: return UIScreen.main.bounds.height * 0.8
             }
         }
         
@@ -71,10 +71,10 @@ struct BottomSheet: View {
                     .fontWeight(.bold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 30)
-                if selectedPlace != nil {
+                if selectedBuilding != nil {
                     Spacer()
                     Button(action: {
-                        self.selectedPlace = nil // Deselect to return to list
+                        self.selectedBuilding = nil // Deselect to return to list
                     }) {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(.gray)
@@ -85,16 +85,16 @@ struct BottomSheet: View {
             }
             
             ScrollView {
-                if let selectedPlace = selectedPlace {
-                    PlaceDetails(selectedPlace: selectedPlace)
+                if let selectedBuilding = selectedBuilding {
+                    BuildingDetails(selectedBuilding: selectedBuilding)
                 } else {
-                    // Show list of cards when no place is selected
+                    // Show list of cards when no building is selected
                     VStack {
-                        ForEach(places) { place in
-                            PlacesCard(places: place)
+                        ForEach(buildings) { building in
+                            BuildingCard(building: building)
                                 .onTapGesture {
-                                    selectedPlace = place // Select the tapped place
-                                    // Expand the sheet when selecting a place
+                                    selectedBuilding = building // Select the tapped building
+                                    // Expand the sheet when selecting a building
                                     heightState = .full
                                 }
                         }
@@ -102,7 +102,7 @@ struct BottomSheet: View {
                     .padding(.horizontal)
                 }
             }
-            .padding(.bottom, 30)
+            .padding(.bottom, 200)
         }
         .background(Color.white)
         .cornerRadius(20)
@@ -130,12 +130,11 @@ struct BottomSheet: View {
         )
         .animation(.spring(response: 0.3, dampingFraction: 0.7), value: heightState)
         .animation(.spring(response: 0.3, dampingFraction: 0.7), value: dragOffset)
-        .animation(.easeInOut, value: selectedPlace) // Animate the switch
+        .animation(.easeInOut, value: selectedBuilding) // Animate the switch
     }
 }
 
 #Preview {
-    let modelData = ModelData()
-    BottomSheet(places: modelData.places)
-        .environment(modelData)
+    BottomSheet(buildings: [])
+        .modelContainer(for: Building.self, inMemory: true)
 }

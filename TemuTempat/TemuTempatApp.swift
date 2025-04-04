@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct TemuTempatApp: App {
     var body: some Scene {
         WindowGroup {
-            let modelData = ModelData()
             ContentView()
-                .environment(modelData)
+                .modelContainer(for: Building.self)
         }
     }
 }

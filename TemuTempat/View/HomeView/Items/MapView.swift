@@ -7,26 +7,30 @@
 
 import SwiftUI
 import MapKit
+import SwiftData
 
 struct MapView: View {
-    @Environment(ModelData.self) var modelData
+    @Query var buildings: [Building]
+    @Query var places: [Place]
+    
+    @Environment(\.modelContext) private var context
     
     @State var position = MapCameraPosition.region(MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: -6.301616, longitude: 106.651796),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.005)
     ))
     
-    @State private var selectedPlace: Places?
+    @State private var selectedBuilding: Building?
     @State private var searchTerm: String = ""
     
 //    var userPosition = MapCameraPosition.userLocation
     
-    var searchedPlaces: [Places] {
+    var searchedBuildings: [Building] {
         if searchTerm.isEmpty {
-            return modelData.places // Show all places when search is empty
+            return buildings // Show all buildings when search is empty
         } else {
-            return modelData.places.filter { place in
-                place.name.lowercased().contains(searchTerm.lowercased()) // Case-insensitive search by name
+            return buildings.filter { building in
+                building.name.lowercased().contains(searchTerm.lowercased()) // Case-insensitive search by name
             }
         }
     }
@@ -34,49 +38,48 @@ struct MapView: View {
     var body: some View {
         ZStack {
             Map(position: $position) {
-                ForEach(modelData.places) { place in
-                    Annotation(place.name, coordinate: place.locationCoordinate) {
-                        Image(systemName: "mappin.circle.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.red)
-                            .frame(width: 30, height: 30)
-                            .onTapGesture {
-                                selectedPlace = place
-                            }
+                ForEach(buildings) { building in
+                    if building.locationCoordinate != nil {
+                        Annotation(building.name, coordinate: building.locationCoordinate!) {
+                            Image(systemName: "mappin.circle.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.red)
+                                .frame(width: 30, height: 30)
+                                .onTapGesture {
+                                    selectedBuilding = building
+                                }
+                        }
                     }
                 }
             }
             .ignoresSafeArea()
             
             // Bottom sheet is now positioned by its own internal logic
-            if let selectedPlace = selectedPlace {
-                BottomSheet(places: [selectedPlace])
+            if let selectedBuilding = selectedBuilding {
+                BottomSheet(buildings: [selectedBuilding])
                     .transition(.move(edge: .bottom))
             } else {
-                BottomSheet(places: searchedPlaces)
+                BottomSheet(buildings: searchedBuildings)
                     .transition(.move(edge: .bottom))
             }
             
             VStack {
                 SearchBar(searchTerm: $searchTerm)
-                    .padding(.horizontal)
-                    .padding(.top)
+                    .padding(.top, 20)
                     .ignoresSafeArea(.keyboard, edges: .bottom)
-                Spacer()
             }
         }
         .onChange(of: searchTerm) { oldValue, newValue in
-            // Reset selectedPlace to nil when searchTerm changes
+            // Reset selectedBuilding to nil when searchTerm changes
             if !newValue.isEmpty {
-                selectedPlace = nil
+                selectedBuilding = nil
             }
         }
     }
 }
 
 #Preview {
-    let modelData = ModelData()
     MapView()
-        .environment(modelData)
+        .modelContainer(for: Building.self, inMemory: true)
 }

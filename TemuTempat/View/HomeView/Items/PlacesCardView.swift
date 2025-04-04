@@ -1,5 +1,5 @@
 //
-//  PlacesCardView.swift
+//  BuildingsCardView.swift
 //  TemuTempat
 //
 //  Created by Akbar Febry on 27/03/25.
@@ -7,19 +7,13 @@
 
 import SwiftUI
 
-struct PlacesCard: View {
-    @Environment(ModelData.self) var modelData
-    var places: Places
+struct BuildingCard: View {
+    var building: Building
     
-    var placeIndex: Int {
-        modelData.places.firstIndex(where : { $0.id == places.id })!
-    }
-
     var body: some View {
-        @Bindable var modelData = modelData
         VStack {
             HStack {
-                places.image
+                building.image
                     .resizable()
                     .scaledToFit()
                     .frame(width: 80, height: 80)
@@ -27,23 +21,26 @@ struct PlacesCard: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(places.name)
+                        Text(building.name)
                             .font(.headline)
                             .foregroundColor(.black)
                         Spacer()
                         
-                        FavoriteButton(isLoved: $modelData.places[placeIndex].isFavorite)
+                        FavoriteButton(isLoved: Binding(
+                            get: { building.isFavorite },
+                            set: { building.isFavorite = $0 }
+                        ))
                     }
                     
-                    Text(places.description)
+                    Text(building.desc)
                         .font(.caption)
                         .foregroundColor(.gray)
                         .lineLimit(2)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack {
-                        ForEach(places.tags, id: \.self) { tags in
-                            Text(tags)
+                        ForEach(building.tags, id: \.self) { tag in
+                            Text(tag)
                                 .font(.system(size: 12))
                                 .padding(5)
                                 .background(Color.gray.opacity(0.3))
@@ -57,10 +54,4 @@ struct PlacesCard: View {
             Divider()
         }
     }
-}
-
-#Preview {
-    let modelData = ModelData()
-    PlacesCard(places: modelData.places[0])
-        .environment(modelData)
 }
