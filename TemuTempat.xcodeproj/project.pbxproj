@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		99BB8C192D93D2ED00D44358 /* TemuTempat */ = {
+		995267C42DA793AC00996FB2 /* TemuTempat */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = TemuTempat;
 			sourceTree = "<group>";
@@ -32,8 +32,8 @@
 		99BB8C0E2D93D2ED00D44358 = {
 			isa = PBXGroup;
 			children = (
-				99BB8C192D93D2ED00D44358 /* TemuTempat */,
 				99BB8C182D93D2ED00D44358 /* Products */,
+				995267C42DA793AC00996FB2 /* TemuTempat */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,9 +59,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				99BB8C192D93D2ED00D44358 /* TemuTempat */,
 			);
 			name = TemuTempat;
 			packageProductDependencies = (
