@@ -12,22 +12,22 @@
 TemuTempat is a modern location discovery platform designed to help users—especially mentees—find interesting places and facilities around Green Office Park (GOP), BSD. Whether you're looking for a cozy café, popular lunch spots, toilets, mushola, or hidden gems, TemuTempat simplifies the discovery process.
 
 ✨ Features
-- • 🔍 Smart Search – Find places easily using category filters and suggestions
-- • 🗺️ Interactive Maps – Visualize and explore locations directly through a map
-- • 📱 Mobile Ready – Optimized for on-the-go access via iOS devices
-- • 🏆 Quiz Mode – Challenge yourself and learn more about GOP with interactive quizzes
-- • 👥 User Profiles – View your bookmarked places and quiz achievements
+-  🔍 Smart Search – Find places easily using category filters and suggestions
+-  🗺️ Interactive Maps – Visualize and explore locations directly through a map
+-  📱 Mobile Ready – Optimized for on-the-go access via iOS devices
+-  🏆 Quiz Mode – Challenge yourself and learn more about GOP with interactive quizzes
+-  👥 User Profiles – View your bookmarked places and quiz achievements
 
 🧱 Tech Stack
-- • SwiftUI – For building a responsive, elegant iOS interface
-- • SwiftData – For managing data models and local storage efficiently
-- • MapKit – For rendering maps and location-based functionality
+-  SwiftUI – For building a responsive, elegant iOS interface
+-  SwiftData – For managing data models and local storage efficiently
+-  MapKit – For rendering maps and location-based functionality
 
 📚 Built with CBL
 TemuTempat is proudly built using the Challenge-Based Learning (CBL) framework:
-- • Engage: Identify real-world problems faced by new visitors or mentees in GOP
-- • Investigate: Research and explore ways to solve discovery and navigation challenges
-- • Act: Develop TemuTempat as a practical solution, applying tech skills to address user needs
+-  Engage: Identify real-world problems faced by new visitors or mentees in GOP
+-  Investigate: Research and explore ways to solve discovery and navigation challenges
+-  Act: Develop TemuTempat as a practical solution, applying tech skills to address user needs
 
 🚀 Getting Started
 1. Clone the repository: git clone https://github.com/udinburgh/TemuTempat.git
@@ -35,5 +35,5 @@ TemuTempat is proudly built using the Challenge-Based Learning (CBL) framework:
 3. Run the app on a simulator or your iOS device
 
 ⚠️ Minimum Requirements:
-- • Xcode 15+
-- • iOS 17+
+-  Xcode 15+
+-  iOS 17+
